@@ -1,4 +1,4 @@
 # MazeGenerator
 
-## Subfolders
+## Implementations
 - [Kruskal](Kruskal/)
