@@ -37,7 +37,7 @@ int main (int argc, char * argv[])
                 dr.drawLine({i, j}, {i, j + 1});
         }
     }
-    
+
     cv::Mat dst = cv::Mat::zeros(dr.getMat().cols + 2, dr.getMat().rows + 2, CV_8UC3);
     dst.setTo(cv::Scalar(0, 0, 0));
     dr.getMat().copyTo(dst(cv::Rect(1, 1, dr.getMat().cols, dr.getMat().rows)));
@@ -45,6 +45,29 @@ int main (int argc, char * argv[])
     cv::Mat res = cv::Mat::zeros(dst.cols + 2, dst.rows + 2, CV_8UC3);
     res.setTo(cv::Scalar(255, 255, 255));
     dst.copyTo(res(cv::Rect(1, 1, dst.cols, dst.rows)));
+
+    struct timeval time;
+    gettimeofday(&time, 0);
+    srand(time.tv_sec * 1000 + time.tv_usec % 1000);
+    auto r = [](const int a, const int b)->int { return a + rand() % (b - a + 1); };
+    
+    while (true)
+    {
+        cv::Point st(1, r(2, res.cols - 2));
+        cv::line(res, st, st, cv::Scalar(255, 255, 255), 1, cv::LINE_8);
+        if (res.at<cv::Vec4b>(st.x + 1, st.y) == cv::Vec4b(255, 255, 255, 255))
+            break;
+        cv::line(res, st, st, cv::Scalar(0, 0, 0), 1, cv::LINE_8);
+    }
+
+    while (true)
+    {
+        cv::Point st(res.rows - 2, r(2, res.cols - 2));
+        cv::line(res, st, st, cv::Scalar(255, 255, 255), 1, cv::LINE_8);
+        if (res.at<cv::Vec4b>(st.x - 1, st.y) == cv::Vec4b(255, 255, 255, 255))
+            break;
+        cv::line(res, st, st, cv::Scalar(0, 0, 0), 1, cv::LINE_8);
+    }
 
     cv::imshow("MazeGenerator", res);
     cv::imwrite("generated.jpg", res);
