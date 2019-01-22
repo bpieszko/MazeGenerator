@@ -35,12 +35,6 @@ void Algorithm::generateMaze() {
 
     std::random_shuffle(walls.begin(), walls.end());
 
-    std::cout << "Walls {" << std::endl;
-    for (auto i : walls) {
-        std::cout << "{" << i.first.first << ", " << i.first.second << "} - {" << i.second.first << ", " << i.second.second << "}" << std::endl;
-    }
-    std::cout << "}" << std::endl;
-
     FindAndUnion fau(getBoard().getHeight() * getBoard().getWidth());
 
     for (auto & i : walls)
@@ -49,10 +43,8 @@ void Algorithm::generateMaze() {
         size_t b = i.second.first * getBoard().getWidth() + i.second.second;
         if (fau.Find(a) != fau.Find(b))
         {
-            std::cout << "{" << i.first.first << ", " << i.first.second << "} - {" << i.second.first << ", " << i.second.second << "}" << std::endl;
             fau.Union(a, b);
             getBoard().getCell(i.first).addNeighbour(getBoard().getCell(i.second));
-            //getBoard().getCell(i.second).addNeighbour(getBoard().getCell(i.first));
         }
     }
 }

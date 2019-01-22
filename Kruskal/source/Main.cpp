@@ -49,7 +49,7 @@ int main (int argc, char * argv[])
     cv::imshow("MazeGenerator", res);
     cv::imwrite("generated.jpg", res);
 
-    //cv::waitKey(0);
+    cv::waitKey(0);
 
     return 0;
 }
