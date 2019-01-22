@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "Algorithm.hpp"
 #include "Board.hpp"
 #include "Drawer.hpp"
@@ -7,6 +8,21 @@ void showUsage()
 {
     std::cout << "Usage:" << std::endl;
     std::cout << "\t./MazeGenerator [height] [width]" << std::endl;
+}
+
+void depth_first_search(const size_t x, const size_t y, cv::Mat res)
+{
+    cv::line(res, cv::Point(x, y), cv::Point(x, y), cv::Scalar(0, 0, 255), 1, cv::LINE_8);
+    cv::imshow("MazeGenerator", res);
+    
+    if (res.at<cv::Vec4b>(x + 1, y) == cv::Vec4b(255, 255, 255, 255))
+    {
+        usleep(100);
+        depth_first_search(x + 1, y, res);
+    }
+    
+
+    cv::imshow("MazeGenerator", res);
 }
 
 int main (int argc, char * argv[])
@@ -69,8 +85,17 @@ int main (int argc, char * argv[])
         cv::line(res, st, st, cv::Scalar(0, 0, 0), 1, cv::LINE_8);
     }
 
-    cv::imshow("MazeGenerator", res);
     cv::imwrite("generated.jpg", res);
+
+    cv::imshow("MazeGenerator", res);
+
+    for (size_t y = 2; y <= res.cols - 2; ++y)
+    {
+        if (res.at<cv::Vec4b>(2, y) == cv::Vec4b(255, 255, 255, 255))
+        {
+            depth_first_search(2, y, res);
+        }
+    }
 
     cv::waitKey(0);
 
