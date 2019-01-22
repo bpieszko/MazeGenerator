@@ -23,4 +23,5 @@ example:
 
 ## Author
 Bartosz Pieszko
+
 bartosz.pieszko@gmail.com
