@@ -3,7 +3,7 @@
 ## Build
 ```
 git clone https://github.com/bpieszko/MazeGenerator.git
-cd MazeGenerator
+cd MazeGenerator/Kruskal
 mkdir build
 cd build
 cmake ..
