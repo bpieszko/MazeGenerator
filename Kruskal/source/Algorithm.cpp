@@ -18,8 +18,6 @@ inline const size_t Algorithm::getRandom(const size_t a, const size_t b) const {
     return a + rand() % (b - a + 1);
 }
 
-#include <iostream>
-
 void Algorithm::generateMaze() {
     using pii_t = std::pair<size_t, size_t>;
     std::vector<std::pair<pii_t, pii_t>> walls;
