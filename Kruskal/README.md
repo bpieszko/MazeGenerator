@@ -20,6 +20,7 @@ example:
 ```
 
 ## Sample output
+![Broken path to image](examples/generated.jpg)
 
 ## Author
 Bartosz Pieszko
