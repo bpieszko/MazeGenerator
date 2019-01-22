@@ -14,6 +14,10 @@ make
 ```
 ./MazeGenerator [height] [width]
 ```
+example:
+```
+./MazeGenerator 50 50
+```
 
 ## Sample output
 
