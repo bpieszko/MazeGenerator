@@ -9,14 +9,14 @@ Cell::Cell(const size_t a_x, const size_t a_y) : m_neighbour(4, false)
 
 void Cell::addNeighbour(const Cell& c)
 {
-	if (getX() < c.getX())
-		m_neighbour.at(UP) = true;
 	if (getX() > c.getX())
-		m_neighbour.at(DOWN) = true;
-	if (getY() < c.getY())
-		m_neighbour.at(RIGHT) = true;
-	if (getY() > c.getY())
 		m_neighbour.at(LEFT) = true;
+	if (getX() < c.getX())
+		m_neighbour.at(RIGHT) = true;
+	if (getY() < c.getY())
+		m_neighbour.at(UP) = true;
+	if (getY() > c.getY())
+		m_neighbour.at(DOWN) = true;
 }
 
 const std::vector<bool>& Cell::getNeighbour() const

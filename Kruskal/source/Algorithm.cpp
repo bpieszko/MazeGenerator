@@ -18,18 +18,28 @@ inline const size_t Algorithm::getRandom(const size_t a, const size_t b) const {
     return a + rand() % (b - a + 1);
 }
 
+#include <iostream>
+
 void Algorithm::generateMaze() {
     using pii_t = std::pair<size_t, size_t>;
     std::vector<std::pair<pii_t, pii_t>> walls;
 
-    for (size_t i = 0; i < getBoard().getHeight() - 1; ++i) {
-        for (size_t j = 0; j < getBoard().getWidth() - 1; ++j) {
-            walls.push_back({{i, j}, {i + 1, j}});
-            walls.push_back({{i, j}, {i, j + 1}});
+    for (size_t i = 0; i < getBoard().getHeight(); ++i) {
+        for (size_t j = 0; j < getBoard().getWidth(); ++j) {
+            if (i + 1 < getBoard().getHeight())
+                walls.push_back({{i, j}, {i + 1, j}});
+            if (j + 1 < getBoard().getWidth())
+                walls.push_back({{i, j}, {i, j + 1}});
         }
     }
 
     std::random_shuffle(walls.begin(), walls.end());
+
+    std::cout << "Walls {" << std::endl;
+    for (auto i : walls) {
+        std::cout << "{" << i.first.first << ", " << i.first.second << "} - {" << i.second.first << ", " << i.second.second << "}" << std::endl;
+    }
+    std::cout << "}" << std::endl;
 
     FindAndUnion fau(getBoard().getHeight() * getBoard().getWidth());
 
@@ -39,9 +49,10 @@ void Algorithm::generateMaze() {
         size_t b = i.second.first * getBoard().getWidth() + i.second.second;
         if (fau.Find(a) != fau.Find(b))
         {
+            std::cout << "{" << i.first.first << ", " << i.first.second << "} - {" << i.second.first << ", " << i.second.second << "}" << std::endl;
             fau.Union(a, b);
-            getBoard().getCell(i.first).addNeighbour(getBoard().getCell(i.first));
-            getBoard().getCell(i.second).addNeighbour(getBoard().getCell(i.first));
+            getBoard().getCell(i.first).addNeighbour(getBoard().getCell(i.second));
+            //getBoard().getCell(i.second).addNeighbour(getBoard().getCell(i.first));
         }
     }
 }
