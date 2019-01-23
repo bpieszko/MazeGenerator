@@ -20,13 +20,15 @@ int main (int argc, char * argv[])
         return -1;
     }
 
-    Kruskal::Algorithm alg(atoi(argv[1]), atoi(argv[1]));
+    size_t size = atoi(argv[1]);
+
+    Kruskal::Algorithm alg(size, size);
     alg.generateMaze();
     Kruskal::Board board = alg.getBoard();
 
     cv::namedWindow("MazeGenerator", cv::WINDOW_AUTOSIZE);
 
-    Kruskal::Drawer dr(atoi(argv[1]), atoi(argv[1]));
+    Kruskal::Drawer dr(size, size);
     for (int i = 0; i < board.getHeight(); ++i)
     {
         for (int j = 0; j < board.getWidth(); ++j)
@@ -51,6 +53,8 @@ int main (int argc, char * argv[])
 
     Kruskal::ProcessImage::addStartEnd(res);
 
+    cv::imwrite("maze.jpg", res);
+
     for (size_t y = 2; y <= res.cols - 2; ++y)
     {
         if (res.at<cv::Vec3b>(y, 1) == cv::Vec3b(255, 255, 255))
@@ -60,7 +64,7 @@ int main (int argc, char * argv[])
         }
     }
 
-    cv::imwrite("generated.jpg", res);
+    cv::imwrite("solved.jpg", res);
 
     return 0;
 }
