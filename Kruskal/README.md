@@ -21,6 +21,7 @@ example:
 
 ## Sample output
 ![Broken path to image](examples/generated.jpg)
+![Broken path to image](examples/generated2.jpg)
 
 ## Author
 Bartosz Pieszko
