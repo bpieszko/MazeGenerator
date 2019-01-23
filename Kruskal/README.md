@@ -12,11 +12,11 @@ make
 
 ## Using
 ```
-./MazeGenerator [height] [width]
+./MazeGenerator [size]
 ```
 example:
 ```
-./MazeGenerator 50 50
+./MazeGenerator 100
 ```
 
 ## Sample output
